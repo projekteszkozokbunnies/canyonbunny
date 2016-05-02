@@ -27,7 +27,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public AssetFonts fonts;
 
-	/**
+    /**
      * A játékban megjelenő betűk létrehozására szolgál.  
      */
     public class AssetFonts {
