@@ -5,6 +5,20 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.canyonbunny.game.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
+<<<<<<< HEAD
+=======
+project.ext.texturePacker = ["desktop/assetsraw/img", "android/assets/img", "canyonbunny.pack"]
+project.ext.texturePackerUi = ["desktop/assetsraw/imgui", "android/assets/img", "canyonbunnyui.pack"]
+
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+task texturePacker << {
+    if (project.ext.has('texturePacker')) {
+        logger.info "Calling TexturePacker: "+texturePacker
+        TexturePacker.process(texturePacker[0], texturePacker[1], texturePacker[2])
+        TexturePacker.process(texturePackerUi[0], texturePackerUi[1], texturePackerUi[2])
+    }
+}
+>>>>>>> jani_branch
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
@@ -43,4 +57,8 @@ task afterEclipseImport(description: "Post processing after project generation",
     printer.setPreserveWhitespace(true)
     printer.print(classpath)
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> jani_branch
