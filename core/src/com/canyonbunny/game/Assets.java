@@ -35,9 +35,9 @@ public class Assets implements Disposable, AssetErrorListener {
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
 
-		/**
-     	 * Konstruktor, mely beállítja a betűk méretét és a szép megjelenéshez szükséges textúra szűrés módját.
-     	 */
+        /**
+         * Konstruktor, mely beállítja a betűk méretét és a szép megjelenéshez szükséges textúra szűrés módját.
+         */
         public AssetFonts () {
             defaultSmall = new BitmapFont(
                     Gdx.files.internal("img/arial-15.fnt"), true);
@@ -57,9 +57,9 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-	/**
+    /**
      * Inicializálja az AssetManager-t. Betölti az atlas-t, ami a játékban megjelenő textúrákhoz fog kelleni. 
-	 * Ezután a fontok és a különböző pályaelemek létrehozása történik.
+     * Ezután a fontok és a különböző pályaelemek létrehozása történik.
      */
     public void init (AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -101,7 +101,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
     /**
      * Az erőforrások csökkentése céljából a játékelemeket csak egyszer töltjük be memóriába.
-	 * Ebben az osztályban tároljuk el a nyulat. 
+     * Ebben az osztályban tároljuk el a nyulat. 
      */
     public class AssetBunny {
 
@@ -167,10 +167,10 @@ public class Assets implements Disposable, AssetErrorListener {
         public final AtlasRegion carrot;
         public final AtlasRegion goal;
 
- 	   	/**
-    	 * Konstruktor, mely létrehozza a felhőket, hegyeket, vízet, répát és a célt. 
-		 * @param atlas Ebből tölti be a szükséges részeket a memóriába.
-   		 */
+        /**
+         * Konstruktor, mely létrehozza a felhőket, hegyeket, vízet, répát és a célt. 
+         * @param atlas Ebből tölti be a szükséges részeket a memóriába.
+         */
         public AssetLevelDecoration(TextureAtlas atlas) {
             cloud01 = atlas.findRegion("cloud01");
             cloud02 = atlas.findRegion("cloud02");
