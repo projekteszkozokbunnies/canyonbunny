@@ -17,7 +17,6 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     private AssetManager assetManager;
 
-    // singleton: prevent instantiation from other classes
     private Assets () {}
 
     public AssetBunny bunny;
@@ -28,24 +27,27 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public AssetFonts fonts;
 
+	/**
+     * A játékban megjelenő betűk létrehozására szolgál.  
+     */
     public class AssetFonts {
         public final BitmapFont defaultSmall;
         public final BitmapFont defaultNormal;
         public final BitmapFont defaultBig;
 
+		/**
+     	 * Konstruktor, mely beállítja a betűk méretét és a szép megjelenéshez szükséges textúra szűrés módját.
+     	 */
         public AssetFonts () {
-            // create three fonts using Libgdx's 15px bitmap font
             defaultSmall = new BitmapFont(
                     Gdx.files.internal("img/arial-15.fnt"), true);
             defaultNormal = new BitmapFont(
                     Gdx.files.internal("img/arial-15.fnt"), true);
             defaultBig = new BitmapFont(
                     Gdx.files.internal("img/arial-15.fnt"), true);
-            // set font sizes
             defaultSmall.getData().setScale(0.75f, 0.75f);
             defaultNormal.getData().setScale(1.0f, 1.0f);
             defaultBig.getData().setScale(1.5f, 1.5f);
-            // enable linear texture filtering for smooth fonts
             defaultSmall.getRegion().getTexture().setFilter(
                     TextureFilter.Linear, TextureFilter.Linear);
             defaultNormal.getRegion().getTexture().setFilter(
@@ -55,26 +57,24 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
+	/**
+     * Inicializálja az AssetManager-t. Betölti az atlas-t, ami a játékban megjelenő textúrákhoz fog kelleni. 
+	 * Ezután a fontok és a különböző pályaelemek létrehozása történik.
+     */
     public void init (AssetManager assetManager) {
         this.assetManager = assetManager;
-        // set asset manager error handler
         assetManager.setErrorListener(this);
-        // load texture atlas
         assetManager.load(com.canyonbunny.game.util.Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
-        // start loading assets and wait until finished
         assetManager.finishLoading();
         Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
         for (String a : assetManager.getAssetNames())
             Gdx.app.debug(TAG, "asset: " + a);
 
         TextureAtlas atlas = assetManager.get(com.canyonbunny.game.util.Constants.TEXTURE_ATLAS_OBJECTS);
-        // enable texture filtering for pixel smoothing
         for (Texture t : atlas.getTextures()) {
             t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
-        //font
         fonts = new AssetFonts();
-        // create game resource objects
         bunny = new AssetBunny(atlas);
         rock = new AssetRock(atlas);
         goldCoin = new AssetGoldCoin(atlas);
@@ -82,6 +82,9 @@ public class Assets implements Disposable, AssetErrorListener {
         levelDecoration = new AssetLevelDecoration(atlas);
     }
 
+    /**
+     * Meghíváskor elengedi az erőforrásokat.
+     */
     @Override
     public void dispose () {
         assetManager.dispose();
@@ -96,7 +99,10 @@ public class Assets implements Disposable, AssetErrorListener {
                 asset.fileName + "'", (Exception)throwable);
     }
 
-    //getting regions is slow, so do it once, like in this class with these objects
+    /**
+     * Az erőforrások csökkentése céljából a játékelemeket csak egyszer töltjük be memóriába.
+	 * Ebben az osztályban tároljuk el a nyulat. 
+     */
     public class AssetBunny {
 
         public final AtlasRegion head;
@@ -107,6 +113,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * A sziklák tárolása itt történik.
+     */
     public class AssetRock {
 
         public final AtlasRegion edge;
@@ -119,6 +128,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * A felvehető érme elhelyzésére szolgál.
+     */
     public class AssetGoldCoin {
 
         public final AtlasRegion goldCoin;
@@ -129,6 +141,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * A toll tárolására szolgáló osztály.
+     */
     public class AssetFeather {
 
         public final AtlasRegion feather;
@@ -139,6 +154,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
+    /**
+     * A pályadekorációhoz tartozó elemek inicializálására szolgáló osztály.
+     */
     public class AssetLevelDecoration {
         public final AtlasRegion cloud01;
         public final AtlasRegion cloud02;
@@ -149,6 +167,10 @@ public class Assets implements Disposable, AssetErrorListener {
         public final AtlasRegion carrot;
         public final AtlasRegion goal;
 
+ 	   	/**
+    	 * Konstruktor, mely létrehozza a felhőket, hegyeket, vízet, répát és a célt. 
+		 * @param atlas Ebből tölti be a szükséges részeket a memóriába.
+   		 */
         public AssetLevelDecoration(TextureAtlas atlas) {
             cloud01 = atlas.findRegion("cloud01");
             cloud02 = atlas.findRegion("cloud02");
