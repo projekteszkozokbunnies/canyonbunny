@@ -14,6 +14,9 @@ public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
 
     private Game game;
+
+    public CameraHelper cameraHelper;
+
     public int lives;
     public int score;
     private float timeLeftGameOverDelay;
@@ -50,6 +53,12 @@ public class WorldController extends InputAdapter {
     //input handling method 1 - query every frame
     private void handleDebugInput (float deltaTime) {
         if (Gdx.app.getType() != ApplicationType.Desktop) return;
+    }
+
+    private void moveCamera (float x, float y) {
+        x += cameraHelper.getPosition().x;
+        y += cameraHelper.getPosition().y;
+        cameraHelper.setPosition(x, y);
     }
 
     //input handling method 2 - this is a "callback"
