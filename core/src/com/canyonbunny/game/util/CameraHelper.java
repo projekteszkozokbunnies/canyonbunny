@@ -3,6 +3,7 @@ package com.canyonbunny.game.util;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.canyonbunny.game.gameobject.AbstractGameObject;
 
 public class CameraHelper {
     private static final String TAG = CameraHelper.class.getName();
@@ -12,7 +13,7 @@ public class CameraHelper {
 
     private Vector2 position;
     private float zoom;
-    //private AbstractGameObject target;
+    private AbstractGameObject target;
 
     public CameraHelper () {
         position = new Vector2();
@@ -20,6 +21,10 @@ public class CameraHelper {
     }
 
     public void update (float deltaTime) {
+        if (!hasTarget()) return;
+
+        position.x = target.position.x + target.origin.x;
+        position.y = target.position.y + target.origin.y;
         // Prevent camera from moving down too far
         position.y = Math.max(-1f, position.y);
     }
@@ -37,6 +42,20 @@ public class CameraHelper {
     }
 
     public float getZoom () { return zoom; }
+
+    public void setTarget (AbstractGameObject target) {
+        this.target = target;
+    }
+
+    public AbstractGameObject getTarget () {
+        return target;
+    }
+
+    public boolean hasTarget () { return target != null; }
+
+    public boolean hasTarget (AbstractGameObject target) {
+        return hasTarget() && this.target.equals(target);
+    }
 
     public void applyTo (OrthographicCamera camera) {
         camera.position.x = position.x;
