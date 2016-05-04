@@ -123,7 +123,7 @@ public class WorldController extends InputAdapter {
 
 
     // Menu
-    
+
     /**
      * Visszalép a főmenübe.
      */

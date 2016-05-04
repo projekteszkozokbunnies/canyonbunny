@@ -8,6 +8,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+/**
+ * A világ renderelését végző osztály, tartalmazza a kamerát, a sprite-ok gyűjteményét és a WorldControllert
+ * Beállítja a kamera és a GUI kamera pozícióját, a képernyőre rajzolja a szükséges elemeket és kezeli az átméretezést.
+ */
 public class WorldRenderer implements Disposable {
     private OrthographicCamera camera;
     private SpriteBatch batch;
@@ -21,6 +25,9 @@ public class WorldRenderer implements Disposable {
 
     private OrthographicCamera cameraGUI;
 
+    /**
+     * Inicializáló metódus, létrehozza a SpriteBatch-et, a kamerát és a GUI kamerát.
+     */
     private void init () {
         batch = new SpriteBatch();
 
@@ -34,17 +41,28 @@ public class WorldRenderer implements Disposable {
         cameraGUI.update();
     }
 
+    /**
+     * Meghívja a két fő renderelő metódust.
+     */
     public void render () {
         renderWorld(batch);
         renderGui(batch);
     }
 
+    /**
+     * Kirendereli a világ objektumait.
+     * @param batch A kirajzolandó objektumok kötege
+     */
     private void renderWorld (SpriteBatch batch) {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.end();
     }
 
+    /**
+     * Kirendereli a grafikus felhasználói interfészt.
+     * @param batch A kirajzolandó GUI elemek kötege
+     */
     private void renderGui (SpriteBatch batch) {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
@@ -58,6 +76,10 @@ public class WorldRenderer implements Disposable {
         batch.end();
     }
 
+    /**
+     * Kiírja az aktuális pontszámot és egy érme ikont.
+     * @param batch A kirajzolandó objektumok kötege
+     */
     private void renderGuiScore(SpriteBatch batch) {
         float x = -15;
         float y = -15;
@@ -68,6 +90,10 @@ public class WorldRenderer implements Disposable {
                 x + 75, y + 37);
     }
 
+    /**
+     * Az életek számának megfelelő mennyiségű nyúlfejet jelenít meg.
+     * @param batch A kirajzolandó objektumok kötege
+     */
     private void renderGuiExtraLive (SpriteBatch batch) {
         float x = cameraGUI.viewportWidth - 50 -
                 com.canyonbunny.game.util.Constants.LIVES_START * 50;
@@ -81,6 +107,10 @@ public class WorldRenderer implements Disposable {
         }
     }
 
+    /**
+     * Kiírja az aktuális FPS számot.
+     * @param batch A kirajzolandó objektumok kötege
+     */
     private void renderGuiFpsCounter (SpriteBatch batch) {
         float x = cameraGUI.viewportWidth - 55;
         float y = cameraGUI.viewportHeight - 15;
@@ -101,6 +131,10 @@ public class WorldRenderer implements Disposable {
     }
 
 
+    /**
+     * Kiírja a Game Over üzenetet a játék befejeződésekor.
+     * @param batch A kirajzolandó objektumok kötege
+     */
     private void renderGuiGameOverMessage (SpriteBatch batch) {
         float x = cameraGUI.viewportWidth / 2;
         float y = cameraGUI.viewportHeight / 2;
@@ -112,6 +146,11 @@ public class WorldRenderer implements Disposable {
         }
     }
 
+    /**
+     * Kezeli a képrenyő átméretezését.
+     * @param width Szélesség
+     * @param height Magasság
+     */
     public void resize (int width, int height) {
         camera.viewportWidth = (com.canyonbunny.game.util.Constants.VIEWPORT_HEIGHT / height) * width;
         camera.update();
@@ -124,6 +163,9 @@ public class WorldRenderer implements Disposable {
         cameraGUI.update();
     }
 
+    /**
+     * A Disposable-ből megvalósított eldobási metódus.
+     */
     @Override public void dispose () {
         batch.dispose();
     }
