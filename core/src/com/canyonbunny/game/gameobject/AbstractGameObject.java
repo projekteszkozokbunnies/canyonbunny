@@ -5,6 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
+/**
+ * Játékobjektum ősosztály, melyből a specifikus objektumok származtathatók.
+ */
 public abstract class AbstractGameObject {
     public Vector2 position;
     public Vector2 dimension;
@@ -31,6 +34,10 @@ public abstract class AbstractGameObject {
         bounds = new Rectangle();
     }
 
+    /**
+     * Az objektumot mozgatja minden frissítéskor.
+     * @param deltaTime A frissítések között eltelt idő
+     */
     public void update (float deltaTime) {
         updateMotionX(deltaTime);
         updateMotionY(deltaTime);
@@ -39,6 +46,10 @@ public abstract class AbstractGameObject {
         position.y += velocity.y * deltaTime;
     }
 
+    /**
+     * X tengelyen való elmozdulást leíró metódus
+     * @param deltaTime A frissítések között eltelt idő
+     */
     protected void updateMotionX (float deltaTime) {
         if (velocity.x != 0) {
         // Apply friction
@@ -55,6 +66,10 @@ public abstract class AbstractGameObject {
         velocity.x = MathUtils.clamp(velocity.x, -terminalVelocity.x, terminalVelocity.x);
     }
 
+    /**
+     * Y tengelyen való elmozdulást leíró metódus
+     * @param deltaTime A frissítések között eltelt idő
+     */
     protected void updateMotionY (float deltaTime) {
         if (velocity.y != 0) {
         // Apply friction
@@ -73,5 +88,9 @@ public abstract class AbstractGameObject {
         velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
     }
 
+    /**
+     * Absztrakt renderelő metódus.
+     * @param batch Kirajzolandó objektumok kötege
+     */
     public abstract void render (SpriteBatch batch);
 }
