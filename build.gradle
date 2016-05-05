@@ -4,12 +4,8 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-<<<<<<< HEAD
-        classpath 'com.android.tools.build:gradle:1.5.0'
-=======
         classpath 'com.android.tools.build:gradle:2.0.0'
         classpath 'com.badlogicgames.gdx:gdx-tools:1.9.1'
->>>>>>> jani_branch
     }
 }
 
@@ -43,11 +39,8 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-<<<<<<< HEAD
-=======
         //needed for generating texture atlaeses
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
->>>>>>> jani_branch
     }
 }
 
@@ -85,8 +78,4 @@ project(":android") {
 
 tasks.eclipse.doLast {
     delete ".project"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> jani_branch
