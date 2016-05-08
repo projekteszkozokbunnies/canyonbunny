@@ -7,20 +7,34 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.canyonbunny.game.Assets;
 
+/**
+ * Felhők főosztály, mely tartalmaz egy Felhő alosztályt.
+ */
 public class Clouds extends AbstractGameObject {
     private float length;
     private Array<TextureRegion> regClouds;
     private Array<Cloud> clouds;
 
+    /**
+     * Felhő alosztály.
+     */
     private class Cloud extends AbstractGameObject {
         private TextureRegion regCloud;
 
         public Cloud () {}
 
+        /**
+         * Textúra elhelyezésére szolgáló metódus.
+         * @param region Méret és koordináta adatokat tárol.
+         */
         public void setRegion (TextureRegion region) {
             regCloud = region;
         }
 
+        /**
+         * Renderelő metódus, mely kirajzolja a felhőt.
+         * @param batch Kirajzolandó objektumok kötege
+         */
         @Override
         public void render (SpriteBatch batch) {
             TextureRegion reg = regCloud;
@@ -32,11 +46,18 @@ public class Clouds extends AbstractGameObject {
         }
     }
 
+    /**
+     * Konstruktor, mely beállítja a felhők méretét.
+     * @param length Méret.
+     */
     public Clouds (float length) {
         this.length = length;
         init();
     }
 
+    /**
+     * Inicializáló metódus, mely beállítja a kezdeti értékeket.
+     */
     private void init () {
         dimension.set(3.0f, 1.5f);
         regClouds = new Array<TextureRegion>();
@@ -52,6 +73,11 @@ public class Clouds extends AbstractGameObject {
             clouds.add(cloud);
         }
     }
+
+    /**
+     * Felhő random pozícióban való elhelyezésére szolgáló függvény.
+     * @return Felhő objektum.
+     */
     private Cloud spawnCloud () {
         Cloud cloud = new Cloud();
         cloud.dimension.set(dimension);
@@ -66,6 +92,10 @@ public class Clouds extends AbstractGameObject {
         return cloud;
     }
 
+    /**
+     * Renderelő metódus, mely kirajzolja az összes felhőt.
+     * @param batch Kirajzolandó objektumok kötege
+     */
     @Override
     public void render (SpriteBatch batch) {
         for (Cloud cloud : clouds)

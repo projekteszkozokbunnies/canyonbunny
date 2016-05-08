@@ -4,15 +4,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.canyonbunny.game.Assets;
 
+/**
+ * Szikla osztálya.
+ */
 public class Rock extends AbstractGameObject {
     private TextureRegion regEdge;
     private TextureRegion regMiddle;
     private int length;
 
+    /**
+     * Konstruktor, mely meghívja az inicializálást végző metódust.
+     */
     public Rock () {
         init();
     }
 
+    /**
+     * Inicializáló metódus, mely beállítja a kezdeti értékeket.
+     */
     private void init () {
         dimension.set(1, 1.5f);
         regEdge = Assets.instance.rock.edge;
@@ -21,16 +30,28 @@ public class Rock extends AbstractGameObject {
         setLength(1);
     }
 
+    /**
+     * Szikla méretét átállító metódus.
+     * @param length Méret.
+     */
     public void setLength (int length) {
         this.length = length;
         // Update bounding box for collision detection
         bounds.set(0, 0, dimension.x * length, dimension.y);
     }
 
+    /**
+     * Szikla méretét növelő metódus.
+     * @param amount Növelés mértéke.
+     */
     public void increaseLength (int amount) {
         setLength(length + amount);
     }
 
+    /**
+     * Renderelő metódus, mely kirajzolja a sziklát.
+     * @param batch Kirajzolandó objektumok kötege.
+     */
     @Override
     public void render (SpriteBatch batch) {
         TextureRegion reg = null;
