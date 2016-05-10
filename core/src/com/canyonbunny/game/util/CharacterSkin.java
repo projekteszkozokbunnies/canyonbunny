@@ -27,7 +27,7 @@ public enum CharacterSkin {
         this.name = name;
         color.set(r, g, b, 1.0f);
     }
-    
+
 	/**
 	* Név visszaadása.
 	*/

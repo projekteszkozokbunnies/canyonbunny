@@ -19,4 +19,7 @@ public class Constants {
     public static final String SKIN_CANYONBUNNY_UI = "img/canyonbunnyui.json";
     public static final String TEXTURE_ATLAS_LIBGDX_UI = "img/uiskin.atlas";
     public static final String SKIN_LIBGDX_UI = "img/uiskin.json";
+
+    // Preferences
+    public static final String PREFERENCES = "canyonbunny.prefs";
 }
