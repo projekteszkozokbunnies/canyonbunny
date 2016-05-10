@@ -4,8 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.canyonbunny.game.Assets;
+import com.canyonbunny.game.util.CharacterSkin;
 import com.canyonbunny.game.util.Constants;
 import com.canyonbunny.game.gameobject.AbstractGameObject;
+import com.canyonbunny.game.util.GamePreferences;
+
+
 
 /**
  * Nyúl osztálya.
@@ -29,14 +33,14 @@ public class BunnyHead extends AbstractGameObject {
     public boolean hasFeatherPowerup;
     public float timeLeftFeatherPowerup;
 
-	/**
+    /**
      * Konstruktor, ami meghívja az inicializálást végző metódust.
      */
     public BunnyHead () {
         init();
     }
 
-	/**
+    /**
      * Inicializáló metódus beállítja a kezdeti értékeket.
      */
     public void init () {
@@ -59,9 +63,9 @@ public class BunnyHead extends AbstractGameObject {
         hasFeatherPowerup = false;
         timeLeftFeatherPowerup = 0;
     }
-    
-    
-	/**
+
+
+    /**
      * Ugrást kezelő metódus.
      * @param jumpKeyPressed igaz/hamis érték, ugrás gomb lenyomásának kezelésére.
      */
@@ -89,10 +93,10 @@ public class BunnyHead extends AbstractGameObject {
     }
 
 
-	 /**
+    /**
      * Felvett powerup esetén beállítja a hosszát.
-     * @param pickedUp Powerup felvételét jelzi. 
-     */	
+     * @param pickedUp Powerup felvételét jelzi.
+     */
     public void setFeatherPowerup (boolean pickedUp) {
         hasFeatherPowerup = pickedUp;
         if (pickedUp) {
@@ -103,14 +107,14 @@ public class BunnyHead extends AbstractGameObject {
 
 
     /**
-     * Eldönti, hogy van-e még powerup.  
-     */	
+     * Eldönti, hogy van-e még powerup.
+     */
     public boolean hasFeatherPowerup () {
         return hasFeatherPowerup && timeLeftFeatherPowerup > 0;
     }
 
 
-	/**
+    /**
      * Nyílvántartja, hogy meddig tart a powerup.
      * @param deltaTime A framenként eltelt idő.
      */
@@ -133,8 +137,8 @@ public class BunnyHead extends AbstractGameObject {
     }
 
 
-	/**
-     * Az aktuális Y pozíciót tartja nyilván. 
+    /**
+     * Az aktuális Y pozíciót tartja nyilván.
      * @param deltaTime A framenként eltelt idő.
      */
     @Override
@@ -169,12 +173,14 @@ public class BunnyHead extends AbstractGameObject {
     }
 
 
-	/**
+    /**
      * Renderelő metódus lesz ami kirajzolja a nyulat.
      * @param batch Kirajzolandó elemek kötege.
      */
     @Override
     public void render (SpriteBatch batch) {
+        // Apply Skin Color
+        batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
         TextureRegion reg = null;
         // Set special color when game object has a feather power-up
         if (hasFeatherPowerup) {
@@ -190,5 +196,5 @@ public class BunnyHead extends AbstractGameObject {
         // Reset color to white
         batch.setColor(1, 1, 1, 1);
     }
-    
+
 }
