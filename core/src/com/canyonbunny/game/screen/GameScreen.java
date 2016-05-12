@@ -3,12 +3,18 @@ package com.canyonbunny.game.screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.canyonbunny.game.WorldController;
+import com.canyonbunny.game.WorldRenderer;
+import com.canyonbunny.game.util.GamePreferences;
 
 /**
  * Ebben a screenben történik a játékmenet.
  */
 public class GameScreen extends AbstractGameScreen {
     private static final String TAG = GameScreen.class.getName();
+
+    private WorldController worldController;
+    private WorldRenderer worldRenderer;
 
     /**
      * Ezzel a változóval jelezzük, hogy valamilyen esemény történt, például telefonhívás, ami miatt szünetelni kell.
@@ -24,8 +30,16 @@ public class GameScreen extends AbstractGameScreen {
      */
     @Override
     public void render (float deltaTime) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        if (!paused) {
+            // Update game world by the time that has passed
+            // since last rendered frame.
+            deltaTime = Math.min(deltaTime, 1.0f / 30.0f);
+            worldController.update(deltaTime);
+        }
+
+        Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f,0xed / 255.0f, 0xff / 255.0f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        worldRenderer.render();
     }
 
     @Override
@@ -34,11 +48,18 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void show () {
+        GamePreferences.instance.load();
+        worldController = new WorldController(game);
+        worldRenderer = new WorldRenderer(worldController);
+        // Enable android bac key
         Gdx.input.setCatchBackKey(true);
     }
 
     @Override
     public void hide () {
+        //this causes Java EXCEPTION_ACCESS_VIOLATION, dispose elsewhere
+        //worldRenderer.dispose();
+        // Disable android back key
         Gdx.input.setCatchBackKey(false);
     }
 
