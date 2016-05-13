@@ -2,11 +2,11 @@ package com.canyonbunny.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.canyonbunny.game.util.Constants;
 import com.canyonbunny.game.util.GamePreferences;
 
 /**
@@ -32,11 +32,11 @@ public class WorldRenderer implements Disposable {
     private void init () {
         batch = new SpriteBatch();
 
-        camera = new OrthographicCamera(com.canyonbunny.game.util.Constants.VIEWPORT_WIDTH, com.canyonbunny.game.util.Constants.VIEWPORT_HEIGHT);
+        camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(0, 0, 0);
         camera.update();
 
-        cameraGUI = new OrthographicCamera(com.canyonbunny.game.util.Constants.VIEWPORT_GUI_WIDTH, com.canyonbunny.game.util.Constants.VIEWPORT_GUI_HEIGHT);
+        cameraGUI = new OrthographicCamera(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT);
         cameraGUI.position.set(0, 0, 0);
         cameraGUI.setToOrtho(true); // flip y-axis
         cameraGUI.update();
@@ -104,9 +104,9 @@ public class WorldRenderer implements Disposable {
      */
     private void renderGuiExtraLive (SpriteBatch batch) {
         float x = cameraGUI.viewportWidth - 50 -
-                com.canyonbunny.game.util.Constants.LIVES_START * 50;
+                Constants.LIVES_START * 50;
         float y = -15;
-        for (int i = 0; i < com.canyonbunny.game.util.Constants.LIVES_START; i++) {
+        for (int i = 0; i < Constants.LIVES_START; i++) {
             if (worldController.lives <= i)
                 batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
             batch.draw(Assets.instance.bunny.head,
@@ -125,13 +125,13 @@ public class WorldRenderer implements Disposable {
         int fps = Gdx.graphics.getFramesPerSecond();
         BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
         if (fps >= 45) {
-        // 45 or more FPS show up in green
+            // 45 or more FPS show up in green
             fpsFont.setColor(0, 1, 0, 1);
         } else if (fps >= 30) {
-        // 30 or more FPS show up in yellow
+            // 30 or more FPS show up in yellow
             fpsFont.setColor(1, 1, 0, 1);
         } else {
-        // less than 30 FPS show up in red
+            // less than 30 FPS show up in red
             fpsFont.setColor(1, 0, 0, 1);
         }
         fpsFont.draw(batch, "FPS: " + fps, x, y);
@@ -178,11 +178,11 @@ public class WorldRenderer implements Disposable {
      * @param height Magasság
      */
     public void resize (int width, int height) {
-        camera.viewportWidth = (com.canyonbunny.game.util.Constants.VIEWPORT_HEIGHT / height) * width;
+        camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
         camera.update();
 
-        cameraGUI.viewportHeight = com.canyonbunny.game.util.Constants.VIEWPORT_GUI_HEIGHT;
-        cameraGUI.viewportWidth = (com.canyonbunny.game.util.Constants.VIEWPORT_GUI_HEIGHT
+        cameraGUI.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT;
+        cameraGUI.viewportWidth = (Constants.VIEWPORT_GUI_HEIGHT
                 / (float)height) * (float)width;
         cameraGUI.position.set(cameraGUI.viewportWidth / 2,
                 cameraGUI.viewportHeight / 2, 0);

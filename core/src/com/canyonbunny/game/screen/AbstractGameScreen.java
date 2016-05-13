@@ -2,6 +2,8 @@ package com.canyonbunny.game.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.canyonbunny.game.Assets;
 
 /**
  * Ez az abstract osztály, amiből az összes többi Screen származik.
@@ -46,6 +48,7 @@ public abstract class AbstractGameScreen implements Screen {
      */
     @Override
     public void resume () {
+        Assets.instance.init(new AssetManager());
     }
 
     /**
@@ -53,5 +56,6 @@ public abstract class AbstractGameScreen implements Screen {
      */
     @Override
     public void dispose () {
+        Assets.instance.dispose();
     }
 }
