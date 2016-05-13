@@ -44,6 +44,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void resize (int width, int height) {
+        worldRenderer.resize(width, height);
     }
 
     @Override
@@ -57,8 +58,6 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void hide () {
-        //this causes Java EXCEPTION_ACCESS_VIOLATION, dispose elsewhere
-        //worldRenderer.dispose();
         // Disable android back key
         Gdx.input.setCatchBackKey(false);
     }

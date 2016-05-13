@@ -39,7 +39,6 @@ public class MenuScreen extends AbstractGameScreen {
     // menu
     private Image imgBackground;
     private Image imgLogo;
-    private Image imgInfo;
     private Image imgCoins;
     private Image imgBunny;
     private Button btnMenuPlay;
@@ -49,10 +48,6 @@ public class MenuScreen extends AbstractGameScreen {
     private Window winOptions;
     private TextButton btnWinOptSave;
     private TextButton btnWinOptCancel;
-    private CheckBox chkSound;
-    private Slider sldSound;
-    private CheckBox chkMusic;
-    private Slider sldMusic;
     private SelectBox<CharacterSkin> selCharSkin;
     private Image imgCharSkin;
     private CheckBox chkShowFpsCounter;
@@ -65,7 +60,7 @@ public class MenuScreen extends AbstractGameScreen {
     private boolean debugEnabled = false;
     private float debugRebuildStage;
 
-    public MenuScreen(Game game) {
+    public MenuScreen (Game game) {
         super(game);
     }
 
@@ -123,9 +118,6 @@ public class MenuScreen extends AbstractGameScreen {
         // Table by default expands horizontally: it adds new columns
         // so to add new rows instead, call row
         layer.row().expandY();
-        // + Info Logos
-        imgInfo = new Image(skinCanyonBunny, "info");
-        layer.add(imgInfo).bottom();
         // if (debugEnabled) layer.debug();
         return layer;
     }
@@ -159,8 +151,6 @@ public class MenuScreen extends AbstractGameScreen {
 
     private Table buildOptionsWindowLayer () {
         winOptions = new Window("Options", skinLibgdx);
-        // + Audio Settings: Sound/Music CheckBox and Volume Slider
-        winOptions.add(buildOptWinAudioSettings()).row();
         // + Character Skin: Selection Box (White, Gray, Brown)
         winOptions.add(buildOptWinSkinSelection()).row();
         // + Debug: Show FPS Counter
@@ -179,33 +169,6 @@ public class MenuScreen extends AbstractGameScreen {
                 (Constants.VIEWPORT_GUI_WIDTH - winOptions.getWidth() - 50,
                         50);
         return winOptions;
-    }
-
-    // parts of the options window
-    private Table buildOptWinAudioSettings () {
-        Table tbl = new Table();
-        // + Title: "Audio"
-        tbl.pad(10, 10, 0, 10);
-        tbl.add(new Label("Audio", skinLibgdx, "default-font",
-                Color.ORANGE)).colspan(3);
-        tbl.row();
-        tbl.columnDefaults(0).padRight(10);
-        tbl.columnDefaults(1).padRight(10);
-        // + Checkbox, "Sound" label, sound volume slider
-        chkSound = new CheckBox("", skinLibgdx);
-        tbl.add(chkSound);
-        tbl.add(new Label("Sound", skinLibgdx));
-        sldSound = new Slider(0.0f, 1.0f, 0.1f, false, skinLibgdx);
-        tbl.add(sldSound);
-        tbl.row();
-        // + Checkbox, "Music" label, music volume slider
-        chkMusic = new CheckBox("", skinLibgdx);
-        tbl.add(chkMusic);
-        tbl.add(new Label("Music", skinLibgdx));
-        sldMusic = new Slider(0.0f, 1.0f, 0.1f, false, skinLibgdx);
-        tbl.add(sldMusic);
-        tbl.row();
-        return tbl;
     }
 
     private Table buildOptWinSkinSelection () {
@@ -290,10 +253,6 @@ public class MenuScreen extends AbstractGameScreen {
     private void loadSettings() {
         GamePreferences prefs = GamePreferences.instance;
         prefs.load();
-        chkSound.setChecked(prefs.sound);
-        sldSound.setValue(prefs.volSound);
-        chkMusic.setChecked(prefs.music);
-        sldMusic.setValue(prefs.volMusic);
         selCharSkin.setSelectedIndex(prefs.charSkin);
         onCharSkinSelected(prefs.charSkin);
         chkShowFpsCounter.setChecked(prefs.showFpsCounter);
@@ -301,10 +260,6 @@ public class MenuScreen extends AbstractGameScreen {
 
     private void saveSettings() {
         GamePreferences prefs = GamePreferences.instance;
-        prefs.sound = chkSound.isChecked();
-        prefs.volSound = sldSound.getValue();
-        prefs.music = chkMusic.isChecked();
-        prefs.volMusic = sldMusic.getValue();
         prefs.charSkin = selCharSkin.getSelectedIndex();
         prefs.showFpsCounter = chkShowFpsCounter.isChecked();
         prefs.save();
@@ -338,6 +293,7 @@ public class MenuScreen extends AbstractGameScreen {
         winOptions.setVisible(true);
     }
 
+    // screen methods
     @Override
     public void render (float deltaTime) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -355,8 +311,6 @@ public class MenuScreen extends AbstractGameScreen {
         }
         stage.act(deltaTime);
         stage.draw();
-        // not working anymore, draws debug lines
-        //Table.drawDebug(stage);
     }
 
     @Override public void resize (int width, int height) {
@@ -374,9 +328,5 @@ public class MenuScreen extends AbstractGameScreen {
         skinCanyonBunny.dispose();
     }
 
-    @Override
-    public void pause() {
-
-    }
-
+    @Override public void pause () { }
 }
