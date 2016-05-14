@@ -60,6 +60,7 @@ public class Assets implements Disposable, AssetErrorListener {
     /**
      * Inicializálja az AssetManager-t. Betölti az atlas-t, ami a játékban megjelenő textúrákhoz fog kelleni. 
      * Ezután a fontok és a különböző pályaelemek létrehozása történik.
+     * @param assetManager erőforrás kezelő, amit az Assets használni fog
      */
     public void init (AssetManager assetManager) {
         this.assetManager = assetManager;
@@ -96,7 +97,7 @@ public class Assets implements Disposable, AssetErrorListener {
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
         Gdx.app.error(TAG, "Couldn't load asset '" +
-                asset.fileName + "'", (Exception)throwable);
+                asset.fileName + "'" + ", error: " + throwable.toString(), (Exception)throwable);
     }
 
     /**

@@ -108,6 +108,7 @@ public class BunnyHead extends AbstractGameObject {
 
     /**
      * Eldönti, hogy van-e még powerup.
+     * @return Ha igaz, van powerup, egyébként nincs
      */
     public boolean hasFeatherPowerup () {
         return hasFeatherPowerup && timeLeftFeatherPowerup > 0;

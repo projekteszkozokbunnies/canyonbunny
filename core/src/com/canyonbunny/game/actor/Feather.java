@@ -47,7 +47,8 @@ public class Feather extends AbstractGameObject {
     }
 	
 	/**
-     * Metódus ami visszaadja a toll értékét. 
+     * Metódus ami visszaadja a toll értékét.
+     * @return A toll értéke
      */
     public int getScore() {
         return 250;

@@ -30,6 +30,8 @@ public class WorldController extends InputAdapter {
     public int score;
     private float timeLeftGameOverDelay;
 
+    private boolean won;
+
     public WorldController (Game game) {
         this.game = game;
         init();
@@ -63,7 +65,11 @@ public class WorldController extends InputAdapter {
     public void update (float deltaTime) {
         handleDebugInput(deltaTime);
 
-        if (isGameOver()) {
+        if(won && timeLeftGameOverDelay <= 0) {
+            timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
+        }
+
+        if (isGameOver() || won) {
             timeLeftGameOverDelay -= deltaTime;
             if (timeLeftGameOverDelay < 0) backToMenu();
         } else {
@@ -168,7 +174,7 @@ public class WorldController extends InputAdapter {
             } else {
                 // Execute auto-forward movement on non-desktop platform
                 if (Gdx.app.getType() != ApplicationType.Desktop) {
-                    //level.bunnyHead.velocity.x = level.bunnyHead.terminalVelocity.x;
+                    level.bunnyHead.velocity.x = level.bunnyHead.terminalVelocity.x;
                 }
             }
             // Bunny Jump
@@ -259,16 +265,29 @@ public class WorldController extends InputAdapter {
             onCollisionBunnyWithFeather(feather);
             break;
         }
+        // Goal
+        r2.set(level.goal.position.x, level.goal.position.y, level.goal.bounds.width, level.goal.bounds.height);
+        if(r1.overlaps(r2)) {
+            won = true;
+        }
     }
 
     // CanyonBunnyGame over
 
     /**
-     * Játék vége, ha az életek száma <= 0.
+     * Játék vége, ha az életek száma kisebb mint 0.
      * @return Vége van-e a játéknak?
      */
     public boolean isGameOver () {
         return lives <= 0;
+    }
+
+    /**
+     * Ha a jatékos elérte a célt, nyert
+     * @return Nyert-e
+     */
+    public boolean hasWon() {
+        return won;
     }
 
     public boolean isPlayerInWater () {

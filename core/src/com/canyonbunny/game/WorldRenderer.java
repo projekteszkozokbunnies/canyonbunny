@@ -2,6 +2,7 @@ package com.canyonbunny.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
@@ -81,6 +82,7 @@ public class WorldRenderer implements Disposable {
             renderGuiFpsCounter(batch);
         // draw game over text
         renderGuiGameOverMessage(batch);
+        renderWonMessage(batch);
         batch.end();
     }
 
@@ -168,6 +170,21 @@ public class WorldRenderer implements Disposable {
             BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
             fontGameOver.setColor(1, 0.75f, 0.25f, 1);
             fontGameOver.draw(batch, "Game Over", x, y, 0, Align.center, false);
+            fontGameOver.setColor(1, 1, 1, 1);
+        }
+    }
+
+    /**
+     * Kiírja a You Won üzenetet a játék befejeződésekor, ha a játékos nyert.
+     * @param batch A kirajzolandó objektumok kötege
+     */
+    private void renderWonMessage(SpriteBatch batch) {
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if (worldController.hasWon()) {
+            BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+            fontGameOver.setColor(1, 0.75f, 0.25f, 1);
+            fontGameOver.draw(batch, "You Won!", x, y, 0, Align.center, false);
             fontGameOver.setColor(1, 1, 1, 1);
         }
     }

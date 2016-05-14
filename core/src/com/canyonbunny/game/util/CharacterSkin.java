@@ -37,7 +37,8 @@ public enum CharacterSkin {
     }
 
 	/**
-	* Szín objektum lekérdezése. 
+	* Szín objektum lekérdezése.
+     * @return A karakter színe
 	*/
     public Color getColor () {
         return color;

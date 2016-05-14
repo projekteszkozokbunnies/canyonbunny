@@ -48,7 +48,8 @@ public class GoldCoin extends AbstractGameObject {
     }
 
 	/**
-     * Egy érme értékét adja vissza. 
+     * Egy érme értékét adja vissza.
+     * @return Az érme értéke
      */
     public int getScore() {
         return 100;
