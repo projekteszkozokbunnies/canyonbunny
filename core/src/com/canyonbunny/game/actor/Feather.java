@@ -12,6 +12,8 @@ public class Feather extends AbstractGameObject {
     private TextureRegion regFeather;
     public boolean collected;
 
+    private static int score = 250;
+
 	/**
     * Konstruktor, ami meghívja az inicializálást végző metódust.
     */
@@ -50,7 +52,7 @@ public class Feather extends AbstractGameObject {
      * Metódus ami visszaadja a toll értékét.
      * @return A toll értéke
      */
-    public int getScore() {
-        return 250;
+    public static int getScore() {
+        return score;
     }
 }

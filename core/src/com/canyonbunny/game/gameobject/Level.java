@@ -93,7 +93,7 @@ public class Level {
                 // player spawn point
                 else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) {
                     obj = new BunnyHead();
-                    offsetHeight = 0.0f;
+                    offsetHeight = -1.0f;
                     obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
                     bunnyHead = (BunnyHead)obj;
                 }

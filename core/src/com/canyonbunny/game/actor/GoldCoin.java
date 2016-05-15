@@ -13,6 +13,8 @@ public class GoldCoin extends AbstractGameObject {
     private TextureRegion regGoldCoin;
     public boolean collected;
 
+    private static int score = 100;
+
 
 	/**
     * Konstruktor, ami meghívja az inicializálást végző metódust.
@@ -51,7 +53,7 @@ public class GoldCoin extends AbstractGameObject {
      * Egy érme értékét adja vissza.
      * @return Az érme értéke
      */
-    public int getScore() {
-        return 100;
+    public static int getScore() {
+        return score;
     }
 }
